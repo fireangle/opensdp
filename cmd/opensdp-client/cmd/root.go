@@ -24,6 +24,7 @@ var (
 	clientCertPath string
 	clientKeyPath  string
 	cfgFile        string
+	client_ip      string
 
 	openspaPath string
 	openspaOSPA string
@@ -52,6 +53,8 @@ func init() {
 		"client's certificate")
 	rootCmd.PersistentFlags().StringVarP(&clientKeyPath, "key", "k", "client.key",
 		"client's key")
+	rootCmd.PersistentFlags().StringVarP(&clientKeyPath, "client-ip", "cip", "0.0.0.0",
+		"client's ip")
 
 	rootCmd.PersistentFlags().StringVar(&openspaPath, "openspa-path", "openspa",
 		"OpenSPA path")
@@ -80,6 +83,7 @@ func init() {
 	rootCmd.MarkFlagRequired("ca-cert")
 	rootCmd.MarkFlagRequired("certificates")
 	rootCmd.MarkFlagRequired("key")
+	rootCmd.MarkFlagRequired("client-ip")
 	rootCmd.MarkFlagRequired("server")
 }
 
