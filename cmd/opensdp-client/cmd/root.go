@@ -53,7 +53,7 @@ func init() {
 		"client's certificate")
 	rootCmd.PersistentFlags().StringVarP(&clientKeyPath, "key", "k", "client.key",
 		"client's key")
-	rootCmd.PersistentFlags().StringVarP(&clientKeyPath, "client-ip", "cip", "0.0.0.0",
+	rootCmd.PersistentFlags().StringVarP(&client_ip, "client-ip", "i", "0.0.0.0",
 		"client's ip")
 
 	rootCmd.PersistentFlags().StringVar(&openspaPath, "openspa-path", "openspa",
