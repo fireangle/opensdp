@@ -1,13 +1,14 @@
 package openspa
 
 import (
-	log "github.com/sirupsen/logrus"
 	"io"
 	"net"
 	"os"
 	"os/exec"
 	"strconv"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Client struct {
@@ -23,14 +24,14 @@ type Request struct {
 	EndPort   uint16
 }
 
-func (c *Client) Send(req Request, continuous bool) error {
+func (c *Client) Send(req Request, continuous bool, clientIp string) error {
 
 	sPort := strconv.Itoa(int(req.StartPort))
 	ePort := strconv.Itoa(int(req.EndPort))
 	serverPort := strconv.Itoa(int(c.Port))
 
 	cmdStr := []string{c.Cmd, "request", c.OSPA, "--protocol", req.Protocol, "-p", sPort, "--end-port", ePort,
-		"--server-ip", c.Server.String(), "--server-port", serverPort}
+		"--server-ip", c.Server.String(), "--server-port", serverPort, "--client-ip", clientIp}
 
 	if continuous {
 		cmdStr = append(cmdStr, "-a")

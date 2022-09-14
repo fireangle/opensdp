@@ -2,15 +2,16 @@ package cmd
 
 import (
 	"fmt"
+	"net"
+	"os"
+	"strconv"
+	"strings"
+
 	"github.com/greenstatic/opensdp/internal/client"
 	"github.com/greenstatic/opensdp/internal/services"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"net"
-	"os"
-	"strconv"
-	"strings"
 )
 
 var servicesCmd = &cobra.Command{
@@ -30,6 +31,7 @@ var servicesCmd = &cobra.Command{
 			viper.GetString("ca-cert"),
 			viper.GetString("certificate"),
 			viper.GetString("key"),
+			viper.GetString("client-ip"),
 			openspaD,
 		}
 
@@ -96,7 +98,7 @@ func openSdpUnlockUsingOpenSpa(c client.Client) {
 	}
 
 	// Using OpenSPA request access to the OpenSDP server
-	err = client.AccessOpenSPAService(opensdpService, false, c.OpenSPA.Path, c.OpenSPA.OSPA)
+	err = client.AccessOpenSPAService(opensdpService, false, c.OpenSPA.Path, c.OpenSPA.OSPA, c.ClientIp)
 	if err != nil {
 		log.Error("Failed to unlock the OpenSDP service port using OpenSPA")
 		log.Error(err)

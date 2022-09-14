@@ -3,10 +3,11 @@ package client
 import (
 	"crypto/tls"
 	"crypto/x509"
-	log "github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	netUrl "net/url"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type Client struct {
@@ -14,6 +15,7 @@ type Client struct {
 	CAPath         string
 	ClientCertPath string
 	ClientKeyPath  string
+	ClientIp       string
 	OpenSPA        OpenSPADetails
 }
 

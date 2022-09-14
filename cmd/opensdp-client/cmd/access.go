@@ -1,13 +1,14 @@
 package cmd
 
 import (
+	"os"
+	"strings"
+
 	"github.com/greenstatic/opensdp/internal/client"
 	"github.com/greenstatic/opensdp/internal/services"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
-	"strings"
 )
 
 var (
@@ -37,6 +38,7 @@ var accessCmd = &cobra.Command{
 			viper.GetString("ca-cert"),
 			viper.GetString("certificate"),
 			viper.GetString("key"),
+			viper.GetString("client-ip"),
 			openspaD,
 		}
 

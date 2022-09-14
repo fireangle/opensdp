@@ -2,10 +2,11 @@ package client
 
 import (
 	"errors"
+	"time"
+
 	"github.com/greenstatic/opensdp/internal/openspa"
 	"github.com/greenstatic/opensdp/internal/services"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 func (c *Client) Access(serv services.Service) error {
@@ -13,14 +14,14 @@ func (c *Client) Access(serv services.Service) error {
 	for _, at := range serv.AccessType {
 		switch at {
 		case services.AccessTypeOpenSPA:
-			return AccessOpenSPAService(serv, true, c.OpenSPA.Path, c.OpenSPA.OSPA)
+			return AccessOpenSPAService(serv, true, c.OpenSPA.Path, c.OpenSPA.OSPA, c.ClientIp)
 		}
 	}
 
 	return errors.New("unsupported access type")
 }
 
-func AccessOpenSPAService(serv services.Service, continuous bool, openspaPath, ospa string) error {
+func AccessOpenSPAService(serv services.Service, continuous bool, openspaPath, ospa string, client_ip string) error {
 
 	var defaultOpenSPAPort uint16 = 22211
 	client := openspa.Client{
@@ -37,7 +38,7 @@ func AccessOpenSPAService(serv services.Service, continuous bool, openspaPath, o
 			port.Port,
 		}
 
-		err := client.Send(req, continuous)
+		err := client.Send(req, continuous, client_ip)
 		if err != nil {
 			return err
 		}
