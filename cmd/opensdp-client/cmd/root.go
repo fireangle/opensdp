@@ -3,11 +3,12 @@ package cmd
 import (
 	"bytes"
 	"fmt"
+	"os"
+	"path/filepath"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"os"
-	"path/filepath"
 )
 
 const defaultConfigFile = "config.yaml"
@@ -68,6 +69,7 @@ func init() {
 	viper.BindPFlag("certificate", rootCmd.PersistentFlags().Lookup("certificate"))
 	viper.BindPFlag("key", rootCmd.PersistentFlags().Lookup("key"))
 	viper.BindPFlag("server", rootCmd.PersistentFlags().Lookup("server"))
+	viper.BindPFlag("client-ip", rootCmd.PersistentFlags().Lookup("client-ip"))
 	viper.BindPFlag("openspa-path", rootCmd.PersistentFlags().Lookup("openspa-path"))
 	viper.BindPFlag("openspa-ospa", rootCmd.PersistentFlags().Lookup("openspa-ospa"))
 
