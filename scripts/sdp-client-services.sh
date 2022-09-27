@@ -1,0 +1,1 @@
+./opensdp-client services --config ~/opensdp/clients/config.yaml --client-ip 192.168.122.53 --server 192.168.122.73:33311 --verbose
